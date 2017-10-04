@@ -1,6 +1,6 @@
 #pragma config(Sensor, in1,    powerExpander,  sensorAnalog)
-#pragma config(Sensor, dgtl1,  leftPiston,     sensorDigitalOut)
-#pragma config(Sensor, dgtl2,  rightPiston,    sensorDigitalOut)
+#pragma config(Sensor, dgtl1,  pistonLeft,     sensorDigitalOut)
+#pragma config(Sensor, dgtl2,  pistonRight,    sensorDigitalOut)
 #pragma config(Sensor, dgtl11, autonomousSimple, sensorDigitalIn)
 #pragma config(Sensor, dgtl12, autonomousToggle, sensorDigitalIn)
 #pragma config(Sensor, I2C_1,  driveRightYEncoder, sensorNone)
@@ -34,6 +34,13 @@ void drive(int y, int t = 0, bool turbo=false){
 	motor[driveRight2] 	= turbo ? y+t : t-y;
 }
 
+int toggle_pistons(){
+	int position = !SensorValue[pistonLeft];
+	SensorValue[pistonLeft] = position;
+	SensorValue[pistonRight] = position;
+	return position;
+}
+
 int threshold(int value, int threshold){
 	return abs(value)>threshold ? value : 0;
 }
@@ -60,6 +67,10 @@ task usercontrol(){
 		if(vexRT[Btn7U]){
 			turbo = !turbo; //Flip the boolean
 			waitUntil(!vexRT[Btn7U]);
+		}
+		//Toggle pistons
+		if(vexRT[Btn7D]){
+			toggle_pistons();
 		}
 		//Runs the code for driving the bot
 		DY = threshold(vexRT[Ch2], 15);
