@@ -24,12 +24,11 @@ void pre_auton(){
 	bStopTasksBetweenModes = true;
 }
 
-void drive(int y, int t = 0, bool turbo=false){
+void drive(int y, int t = 0){
 	//y - Forwards/Backwards
 	//t - Turning (optional parameter)
-	//turbo - Switch to the turbo mode of the planetary transmission?
-	motor[driveSplitLeft] 	= turbo ? y-t : y-t;
-	motor[driveSplitRight] = turbo ? y+t : y+t;
+	motor[driveSplitLeft] 	= y-t;
+	motor[driveSplitRight] = y+t;
 }
 
 int toggle_pistons(){
@@ -40,7 +39,7 @@ int toggle_pistons(){
 }
 
 int threshold(int value, int threshold){
-	return abs(value)>threshold ? value : 0;
+	return abs(value) > threshold ? value : 0;
 }
 
 task autonomous(){
@@ -57,35 +56,24 @@ task usercontrol(){
 	bool turbo = false;
 	while(true){
 		//Toggle turbo mode
-		if(vexRT[Btn7L]){
+		if (vexRT[Btn7L]) {
 			turbo = !turbo; //Flip the boolean
 			waitUntil(!vexRT[Btn7L]);
 		}
 		//Toggle pistons
 		if(vexRT[Btn7R]){
 			toggle_pistons();
+			waitUntil(!vexRT[Btn7R]);
 		}
 		//Runs the code for driving the bot
 		DY = threshold(vexRT[Ch2], 15);
 		DT = threshold(vexRT[Ch1], 15);
 		drive(DY, DT, turbo);
 		//Arms
-		if(vexRT[Btn6U]){
-			motor[armLeft] = motor[armRight] = 127;
-		} else if(vexRT[Btn6D]){
-			motor[armLeft] = motor[armRight] = -127;
-		}
+		motor[armLeft]	= motor[armRight]  = (vexRT[Btn6U] - vexRT[Btn6D]) * 127;
 		//Lift
-		if(vexRT[Btn7U]){
-			motor[liftLeft] = motor[liftRight] = 127;
-		} else if(vexRT[Btn7D]){
-			motor[liftLeft] = motor[liftRight] = -127;
-		}
+		motor[liftLeft] = motor[liftRight] = (vexRT[Btn7U] - vexRT[Btn7D]) * 127;
 		//Intake
-		if(vexRT[Btn5U]){
-			motor[intake] = 127;
-		} else if(vexRT[Btn5D]){
-			motor[intake] = -127;
-		}
+		motor[intake]	= (vexRT[Btn5U] - vexRT[Btn5D]) * 127;
 	}
 }
