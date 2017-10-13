@@ -2,7 +2,7 @@
 #pragma config(Sensor, dgtl1,  autonomousToggle, sensorDigitalIn)
 #pragma config(Sensor, dgtl11, pistonLeft,     sensorDigitalOut)
 #pragma config(Sensor, dgtl12, pistonRight,    sensorDigitalOut)
-#pragma config(Motor,  port2,           intake,        tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port2,           coneIntake,    tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           armLeft,       tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port4,           liftLeft,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port5,           driveSplitLeft, tmotorVex393_MC29, openLoop, reversed, driveLeft)
@@ -37,27 +37,21 @@ task autonomous(){
 
 task usercontrol(){
 	int DY, DT;
-	bool turbo = false;
 	while(true){
-		//Toggle turbo mode
-		if (vexRT[Btn7L]) {
-			turbo = !turbo; //Flip the boolean
-			waitUntil(!vexRT[Btn7L]);
-		}
-		//Toggle pistons
+		//Driving
+		DY = threshold(vexRT[Ch2], 15);
+		DT = threshold(vexRT[Ch1], 15);
+		drive(DY, DT);
+		//Pistons (toggle)
 		if(vexRT[Btn7R]){
 			toggle_pistons();
 			waitUntil(!vexRT[Btn7R]);
 		}
-		//Runs the code for driving the bot
-		DY = threshold(vexRT[Ch2], 15);
-		DT = threshold(vexRT[Ch1], 15);
-		drive(DY, DT);
 		//Arms
-		motor[armLeft]	= motor[armRight]  = (vexRT[Btn6U] - vexRT[Btn6D]) * 127;
+		arms((vexRT[Btn6U] - vexRT[Btn6D]) * 127);
 		//Lift
-		motor[liftLeft] = motor[liftRight] = (vexRT[Btn7U] - vexRT[Btn7D]) * 127;
+		lift((vexRT[Btn7U] - vexRT[Btn7D]) * 127);
 		//Intake
-		motor[intake]	= (vexRT[Btn5U] - vexRT[Btn5D]) * 127;
+		intake((vexRT[Btn5U] - vexRT[Btn5D]) * 127);
 	}
 }
