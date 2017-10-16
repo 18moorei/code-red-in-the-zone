@@ -37,6 +37,7 @@ task autonomous(){
 
 task usercontrol(){
 	int DY, DT;
+	bool armLock = false;
 	while(true){
 		//Driving
 		DY = threshold(vexRT[Ch2], 15);
@@ -48,7 +49,15 @@ task usercontrol(){
 			waitUntil(!vexRT[Btn7R]);
 		}
 		//Arms
-		arms((vexRT[Btn6U] - vexRT[Btn6D]) * 127);
+		if(vexRT[Btn7L]){
+			armLock = !armLock;
+			waitUntil(!vexRT[Btn7L]);
+		}
+		if(armLock){
+			arms(-21);
+		} else {
+			arms((vexRT[Btn6U] - vexRT[Btn6D]) * 127);
+		}
 		//Lift
 		lift((vexRT[Btn7U] - vexRT[Btn7D]) * 127);
 		//Intake
