@@ -4,7 +4,6 @@
 
 #include "Vex_Competition_Includes.c"
 #include "motion.c"
-#include "utils.c"
 #include "user.c"
 #include "auto.c"
 

@@ -1,5 +1,3 @@
-#include "user.h"
-
 task usercontrol(){
 	int DY, DT;
 	bool armsLocked = false;
