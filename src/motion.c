@@ -1,5 +1,9 @@
 #include "motion.h"
 
+int threshold(int value, int threshold){
+	return abs(value) > threshold ? value : 0;
+}
+
 void drive(int y, int t = 0){
 	//y - Forwards/Backwards
 	//t - Turning (optional parameter)
