@@ -16,14 +16,17 @@ int pistons(int position){
 	return PISTON_POS;
 }
 
-void arms(int power){
+int arms(int power){
 	motor[armLeft] = motor[armRight] = power;
+	return power;
 }
 
-void lift(int power){
+int lift(int power){
 	motor[liftLeft] = motor[liftRight] = power;
+	return power;
 }
 
-void intake(int power){
+int intake(int power){
 	motor[coneIntake]	= power;
+	return power;
 }
