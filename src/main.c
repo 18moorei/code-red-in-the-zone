@@ -18,4 +18,11 @@
 #pragma autonomousDuration(15)
 #pragma userControlDuration(105)
 
-#include "main.h"
+#include "Vex_Competition_Includes.c"
+#include "motion.c"
+#include "user.c"
+#include "auto.c"
+
+void pre_auton(){
+	bStopTasksBetweenModes = true;
+}
