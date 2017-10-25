@@ -2,11 +2,14 @@
 
 #define MOTION_H_
 
+//Power Values
 #define MAX_POWER 127
-#define ARM_LOCK -21
+#define ARM_LOCK 21
 
+//Sensor Values
 #define PISTON_POS SensorValue[pistonLeft]
 
+//Controller Mirroring
 #define PAIRED_CH1 (vexRT[Ch1] + vexRT[Ch1Xmtr2])
 #define PAIRED_CH2 (vexRT[Ch2] + vexRT[Ch2Xmtr2])
 #define PAIRED_CH3 (vexRT[Ch3] + vexRT[Ch3Xmtr2])
@@ -26,5 +29,9 @@
 #define PAIRED_BTN8L (vexRT[Btn8L] || vexRT[Btn8LXmtr2])
 #define PAIRED_BTN8R (vexRT[Btn8R] || vexRT[Btn8RXmtr2])
 #define PAIRED_BTN8D (vexRT[Btn8D] || vexRT[Btn8DXmtr2])
+
+#define PAIRED_ACCELX (vexRT[AccelX] > vexRT[AccelXXmtr2] ? vexRT[AccelX] : vexRT[AccelXXmtr2])
+#define PAIRED_ACCELY (vexRT[AccelY] > vexRT[AccelYXmtr2] ? vexRT[AccelY] : vexRT[AccelYXmtr2])
+#define PAIRED_ACCELZ (vexRT[AccelZ] > vexRT[AccelZXmtr2] ? vexRT[AccelZ] : vexRT[AccelZXmtr2])
 
 #endif
