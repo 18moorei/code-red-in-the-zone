@@ -1,6 +1,9 @@
 task usercontrol(){
 	int DY, DT;
 	bool armsLocked = false;
+	//Disable PID
+	setPIDforMotor(driveSplitLeft, false);
+	setPIDforMotor(driveSplitRight, false);
 
 	while(true){
 		//Driving

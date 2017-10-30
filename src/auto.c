@@ -3,6 +3,10 @@ task autonomous(){
 	//Don't run autonomous if the power expander has no battery, so we can touch it and replace it
 	if(SensorValue[autonomousToggle]||!SensorValue[powerExpander]){return;}
 
+	//Enable PID
+	setPIDforMotor(driveSplitLeft, true);
+	setPIDforMotor(driveSplitRight, true);
+
 	//Drive backwards to mobile goal
 	drive(-127);
 	wait(3); //TODO: Use some sensor to determine how far to drive
@@ -25,7 +29,7 @@ task autonomous(){
 	drive(127);
 	intake(0);
 	wait(2);
-	drive(127, 127); //Turn around
+	drive(0, 127); //Turn around
 	wait(1);
 	drive(127);
 	wait(2);
