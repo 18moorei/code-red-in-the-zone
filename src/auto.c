@@ -7,6 +7,12 @@ task autonomous(){
 	setPIDforMotor(driveSplitLeft, true);
 	setPIDforMotor(driveSplitRight, true);
 
+	driveLeftTurn();
+	intake(100);
+	wait(1);
+	intake(0);
+	return; //For testing
+
 	//Drive backwards to mobile goal
 	drive(-127);
 	wait(3); //TODO: Use some sensor to determine how far to drive
