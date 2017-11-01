@@ -1,16 +1,19 @@
 task autonomous(){
 	//Checks if autonomous is enabled and should run
 	//Don't run autonomous if the power expander has no battery, so we can touch it and replace it
-	if(SensorValue[autonomousToggle]||!SensorValue[powerExpander]){return;}
+	if(SensorValue[autonomousToggle]||SensorValue[powerExpander]<300){return;}
 
 	//Enable PID
 	setPIDforMotor(driveSplitLeft, true);
 	setPIDforMotor(driveSplitRight, true);
 
-	driveLeftTurn();
-	intake(100);
-	wait(1);
-	intake(0);
+	turnLeft(340, degrees);
+	forward(1);
+	turnRight(666, degrees);
+	forward(1);
+	setMotorTarget(liftRight, 1000);
+	setMotorTarget(liftRight, -200);
+	setMotorTarget(liftRight, 500);
 	return; //For testing
 
 	//Drive backwards to mobile goal

@@ -21,17 +21,13 @@ void driveResetEncoders(){
 	SensorValue[driveLeftEncoder] = SensorValue[driveRightEncoder] = 0;
 }
 
-void driveDistance(long left, long right = left, int speed = 127){
+void driveDistance(int left, int right, int speed = 67){
 	driveResetEncoders();
 	setMotorTarget(driveSplitLeft, left, speed, false);
 	setMotorTarget(driveSplitRight, right, speed, false);
 	waitUntilMotorStop(driveSplitLeft);
 	waitUntilMotorStop(driveSplitRight);
 	drive(0);
-}
-
-void driveLeftTurn(int speed = 127){
-	driveDistance(1000, 50, speed);
 }
 
 //Pistons
@@ -55,7 +51,7 @@ void armsPosition(long position, int speed = 127){
 
 //Lift
 int lift(int power){
-	motor[liftLeft] = motor[liftRight] = power;
+	motor[liftRight] = power;
 	return power;
 }
 

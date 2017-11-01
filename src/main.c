@@ -24,10 +24,13 @@
 #pragma userControlDuration(105)
 
 #include "Vex_Competition_Includes.c"
+#include "NatLang_CORTEX.c"
 #include "motion.c"
 #include "user.c"
 #include "auto.c"
 
 void pre_auton(){
 	bStopTasksBetweenModes = true;
+	slaveMotor(armLeft, armRight);
+	slaveMotor(liftLeft, liftRight);
 }
