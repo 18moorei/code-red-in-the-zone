@@ -1,6 +1,6 @@
 #include "motion.h"
 
-//Utilities
+// Utilities
 int threshold(int value, int threshold){
 	return abs(value) > threshold ? value : 0;
 }
@@ -9,10 +9,10 @@ int sign(int x) {
     return (x > 0) - (x < 0);
 }
 
-//Driving
+// Driving
 void drive(int y, int t = 0){
-	//y - Forwards/Backwards
-	//t - Turning (optional parameter)
+	// y - Forwards/Backwards
+	// t - Turning (optional parameter)
 	motor[driveSplitLeft] = y-t;
 	motor[driveSplitRight] = y+t;
 }
@@ -30,40 +30,40 @@ void driveDistance(int left, int right, int speed = 67){
 	drive(0);
 }
 
-//Pistons
+// Pistons
 int pistons(int position){
 	SensorValue[pistonLeft] = SensorValue[pistonRight] = position;
 	return PISTON_POS;
 }
 
-//Arms
+// Arms
 int arms(int power){
 	motor[armLeft] = motor[armRight] = power;
 	return power;
 }
 
 void armsPosition(long position, int speed = 127){
-	setMotorTarget(armLeft, position, speed, false); //TODO: Check which motor it is actually on
-	motor[armRight] = motor[armLeft]; //TODO: Sync the other motor to the encoded one
+	// 0 is at mobile goal
+	setMotorTarget(armLeft, -position, speed, false);
 	waitUntilMotorStop(armLeft);
 	arms(0);
 }
 
-//Lift
+// Lift
 int lift(int power){
 	motor[liftRight] = power;
 	return power;
 }
 
 void liftPosition(long position, int speed = 127){
-	setMotorTarget(liftLeft, position, speed, false); //TODO: Check which motor it is actually on
-	motor[liftRight] = motor[liftLeft]; //TODO: Sync the other motor to the encoded one
-	waitUntilMotorStop(liftLeft);
+	// 0 is at the bottom
+	setMotorTarget(liftRight, position, speed, false);
+	waitUntilMotorStop(liftRight);
 	lift(0);
 }
 
-//Intake
+// Intake
 int intake(int power){
-	motor[coneIntake]	= power;
+	motor[coneIntake] = power;
 	return power;
 }

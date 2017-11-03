@@ -6,14 +6,19 @@ task autonomous(){
 	//Enable PID
 	setPIDforMotor(driveSplitLeft, true);
 	setPIDforMotor(driveSplitRight, true);
+	setPIDforMotor(liftRight, true);
+	setPIDforMotor(armRight, true);
 
-	turnLeft(340, degrees);
+	/*turnLeft(340, degrees);
 	forward(1);
 	turnRight(666, degrees);
 	forward(1);
-	setMotorTarget(liftRight, 1000);
-	setMotorTarget(liftRight, -200);
-	setMotorTarget(liftRight, 500);
+	liftPosition(700);
+	liftPosition(200);
+	liftPosition(1000);*/
+	armsPosition(500);
+	armsPosition(200);
+	armsPosition(700);
 	return; //For testing
 
 	//Drive backwards to mobile goal

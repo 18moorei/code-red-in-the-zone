@@ -4,6 +4,8 @@ task usercontrol(){
 	//Disable PID
 	setPIDforMotor(driveSplitLeft, false);
 	setPIDforMotor(driveSplitRight, false);
+	setPIDforMotor(liftRight, false);
+	setPIDforMotor(armRight, false);
 
 	while(true){
 		//Driving
