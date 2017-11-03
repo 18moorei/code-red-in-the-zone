@@ -5,7 +5,7 @@ task usercontrol(){
 	setPIDforMotor(driveSplitLeft, false);
 	setPIDforMotor(driveSplitRight, false);
 	setPIDforMotor(liftRight, false);
-	setPIDforMotor(armRight, false);
+	setPIDforMotor(armLeft, false);
 
 	while(true){
 		//Driving

@@ -31,6 +31,9 @@
 
 void pre_auton(){
 	bStopTasksBetweenModes = true;
+	//Establish slave and master motors
 	slaveMotor(armRight, armLeft);
 	slaveMotor(liftLeft, liftRight);
+	//Reset all encoders
+	SensorValue[I2C_1] = SensorValue[I2C_2] = SensorValue[I2C_3] = SensorValue[I2C_4] = 0;
 }

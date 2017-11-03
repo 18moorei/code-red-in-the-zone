@@ -7,18 +7,20 @@ task autonomous(){
 	setPIDforMotor(driveSplitLeft, true);
 	setPIDforMotor(driveSplitRight, true);
 	setPIDforMotor(liftRight, true);
-	setPIDforMotor(armRight, true);
+	setPIDforMotor(armLeft, true);
 
-	/*turnLeft(340, degrees);
-	forward(1);
+	turnLeft(340, degrees);
+	forward(.3);
 	turnRight(666, degrees);
-	forward(1);
-	liftPosition(700);
-	liftPosition(200);
-	liftPosition(1000);*/
-	armsPosition(500);
-	armsPosition(200);
-	armsPosition(700);
+	forward(.5);
+	liftPosition(700, 67);
+	liftPosition(200, 67);
+	liftPosition(500, 67);
+	liftPosition(0, 67);
+	armsPosition(1000, 67);
+	armsPosition(2000, 67);
+	armsPosition(0, 67);
+	arms(0);
 	return; //For testing
 
 	//Drive backwards to mobile goal
