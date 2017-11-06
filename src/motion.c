@@ -5,10 +5,6 @@ int threshold(int value, int threshold){
 	return abs(value) > threshold ? value : 0;
 }
 
-int sign(int x) {
-    return (x > 0) - (x < 0);
-}
-
 //Driving
 void drive(int y, int t = 0){
 	//y - Forwards/Backwards
@@ -31,15 +27,13 @@ void driveDistance(int left, int right, int speed = 67){
 }
 
 //Pistons
-int pistons(int position){
+void pistons(int position){
 	SensorValue[pistonLeft] = SensorValue[pistonRight] = position;
-	return PISTON_POS;
 }
 
 //Arms
-int arms(int power){
+void arms(int power){
 	motor[armLeft] = power;  //armRight is slaved to armLeft
-	return power;
 }
 
 void armsPosition(long position, int speed = 127){
@@ -49,9 +43,8 @@ void armsPosition(long position, int speed = 127){
 }
 
 //Lift
-int lift(int power){
+void lift(int power){
 	motor[liftRight] = power;  //liftLeft is slaved to liftRight
-	return power;
 }
 
 void liftPosition(long position, int speed = 127){
@@ -62,7 +55,6 @@ void liftPosition(long position, int speed = 127){
 }
 
 //Intake
-int intake(int power){
+void intake(int power){
 	motor[coneIntake] = power;
-	return power;
 }
