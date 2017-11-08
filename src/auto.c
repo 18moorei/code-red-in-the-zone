@@ -10,16 +10,17 @@ task autonomous(){
 	setPIDforMotor(armLeft, true);
 
 	turnLeft(340, degrees);
-	forward(.3);
+	forward(1);
 	turnRight(666, degrees);
-	forward(.5);
+	forward(1);
+	drive(0);
 	liftPosition(700, 67);
 	liftPosition(200, 67);
 	liftPosition(500, 67);
 	liftPosition(0, 67);
-	armsPosition(1000, 67);
+	armsPosition(1100, 67);
 	armsPosition(2000, 67);
-	armsPosition(0, 67);
+	armsPosition(1100, 67);
 	arms(0);
 	return; //For testing
 

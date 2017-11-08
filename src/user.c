@@ -20,6 +20,7 @@ task usercontrol(){
 		}
 
 		//Arms
+		nMotorPIDSpeedCtrl[armLeft] = mtrSpeedReg;
 		if(PAIRED_BTN7L){
 			armsLocked = !armsLocked;
 			waitUntil(!PAIRED_BTN7L);
