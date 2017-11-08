@@ -23,8 +23,6 @@
 #pragma autonomousDuration(15)
 #pragma userControlDuration(105)
 
-void reset_I2C_sensors(void);
-
 #include "Vex_Competition_Includes.c"
 #include "NatLang_CORTEX.c"
 #include "motion.c"
@@ -38,8 +36,4 @@ void pre_auton(void){
 	slaveMotor(liftLeft, liftRight);
 	//Reset all encoders
 	reset_I2C_sensors();
-}
-
-void reset_I2C_sensors(void){
-	SensorValue[I2C_1] = SensorValue[I2C_2] = SensorValue[I2C_3] = SensorValue[I2C_4] = 0;
 }

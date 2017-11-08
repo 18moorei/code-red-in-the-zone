@@ -18,9 +18,9 @@ task autonomous(){
 	liftPosition(200, 67);
 	liftPosition(500, 67);
 	liftPosition(0, 67);
-	armsPosition(1100, 67);
-	armsPosition(2000, 67);
-	armsPosition(1100, 67);
+	armsPosition(-1100, 67);
+	armsPosition(-2000, 67);
+	armsPosition(-1100, 67);
 	arms(0);
 	return; //For testing
 
