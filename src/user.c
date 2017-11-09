@@ -1,5 +1,6 @@
 task usercontrol(){
 	int DY, DT;
+	bool autoArmLocking = true;
 	//Disable PID
 	setPIDforMotor(driveSplitLeft, false);
 	setPIDforMotor(driveSplitRight, false);
@@ -19,11 +20,17 @@ task usercontrol(){
 		}
 
 		//Arms
+		if(PAIRED_BTN7L){
+			autoArmLocking = !autoArmLocking;
+			waitUntil(!PAIRED_BTN7L);
+		}
 		int armPower = threshold(PAIRED_CH3, 15) + ((PAIRED_BTN6U - PAIRED_BTN6D) * MAX_POWER);
 		if(armPower){
 			arms(armPower);
-		} else if(nMotorEncoder[armLeft] < -1000){
+		} else if(nMotorEncoder[armLeft] < -1000 && autoArmLocking){
 			arms(ARM_LOCK);
+		} else if (nMotorEncoder[armLeft] > -1000 && autoArmLocking) {
+			arms(-ARM_LOCK);
 		} else {
 			arms(0);
 		}

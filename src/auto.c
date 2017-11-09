@@ -9,52 +9,34 @@ task autonomous(){
 	setPIDforMotor(liftRight, true);
 	setPIDforMotor(armLeft, true);
 
-	turnLeft(340, degrees);
-	forward(1);
-	turnRight(666, degrees);
-	forward(1);
-	drive(0);
-	liftPosition(700, 67);
-	liftPosition(200, 67);
-	liftPosition(500, 67);
-	liftPosition(0, 67);
-	armsPosition(-1100, 67);
-	armsPosition(-2000, 67);
-	armsPosition(-1100, 67);
-	arms(0);
-	return; //For testing
+	//Lift arm up a little to hold the cone out of the way
+	armsPosition(-500);
+	arms(-ARM_LOCK);
 
 	//Drive backwards to mobile goal
-	drive(-127);
-	wait(3); //TODO: Use some sensor to determine how far to drive
-	drive(0);
+	backward(3000, degrees, 127);
+	drive(0); //Don't hold motors
 
 	//Pickup mobile goal
 	pistons(1);
 	wait(1);
 
 	//Slam preload on top
-	arms(-127);
-	wait(2); //TODO: Use encoder to determine how far to move
-	intake(-127);
-	wait(.5);
-	arms(127);
+	arms(0); //Stop locking arms so the cone can coast down
 	wait(1);
-	arms(ARM_LOCK); //Lock the arms in air so they don't get in the way
+	intake(-127);
+	armsPosition(-500);
+	arms(-ARM_LOCK);
+	intake(0);
 
 	//Drive back to the start
-	drive(127);
-	intake(0);
-	wait(2);
-	drive(0, 127); //Turn around
-	wait(1);
-	drive(127);
-	wait(2);
+	backward(3000, degrees, 127);
+
+	turnRight(666, degrees); //Turn around
+	backward(500, degrees, 12);
 	pistons(0);
-	drive(-127);
-	wait(2);
+	forward(500, degrees, 12);
 
 	//Stop
-	drive(0);
-	arms(0);
+	allMotorsOff();
 }
