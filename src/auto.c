@@ -11,10 +11,9 @@ task autonomous(){
 
 	//Lift arm up a little to hold the cone out of the way
 	armsPosition(-500);
-	arms(-ARM_LOCK);
 
 	//Drive backwards to mobile goal
-	backward(3000, degrees, 127);
+	backward(2000, degrees, 127);
 	drive(0); //Don't hold motors
 
 	//Pickup mobile goal
@@ -26,11 +25,10 @@ task autonomous(){
 	wait(1);
 	intake(-127);
 	armsPosition(-500);
-	arms(-ARM_LOCK);
 	intake(0);
 
 	//Drive back to the start
-	backward(3000, degrees, 127);
+	forward(2000, degrees, 127);
 
 	turnRight(666, degrees); //Turn around
 	backward(500, degrees, 12);

@@ -31,6 +31,8 @@
 
 void pre_auton(void){
 	bStopTasksBetweenModes = true;
+	//Extend pistons
+	pistons(0);
 	//Establish slave and master motors
 	slaveMotor(armRight, armLeft);
 	slaveMotor(liftLeft, liftRight);
