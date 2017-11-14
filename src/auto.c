@@ -13,7 +13,7 @@ task autonomous(){
 	armsPosition(-500);
 
 	//Drive backwards to mobile goal
-	backward(2000, degrees, 127);
+	backward(2800, degrees, 127); //70.9 inches
 	drive(0); //Don't hold motors
 
 	//Pickup mobile goal
@@ -31,9 +31,9 @@ task autonomous(){
 	forward(2000, degrees, 127);
 
 	turnRight(666, degrees); //Turn around
-	backward(500, degrees, 12);
+	backward(1000, degrees, 67);
 	pistons(0);
-	forward(500, degrees, 12);
+	forward(1000, degrees, 67);
 
 	//Stop
 	allMotorsOff();
