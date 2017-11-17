@@ -14,7 +14,7 @@ void drive(int y, int t = 0){
 	motor[driveSplitRight] = y+t;
 }
 
-void driveResetEncoders(){
+void driveResetEncoders(void){
 	SensorValue[driveLeftEncoder] = SensorValue[driveRightEncoder] = 0;
 }
 
@@ -33,9 +33,9 @@ void pistons(int position){
 }
 
 //Arms
-void arms(int power){
+void arms(int power, bool motionAssist = true){
 	int rsign = required_sign(nMotorEncoder[armLeft], -1800, 100);
-	if(sign(power) == rsign || !rsign){
+	if(!motionAssist || sign(power) == rsign || !rsign){
 		motor[armLeft] = power;  //armRight is slaved to armLeft
 	} else {
 		motor[armLeft] = 0;
@@ -49,9 +49,9 @@ void armsPosition(long position, int speed = 127){
 }
 
 //Lift
-void lift(int power){
+void lift(int power, bool motionAssist = true){
 	int rsign = required_sign(nMotorEncoder[liftRight], 0, 1400);
-	if(sign(power) == rsign || !rsign){
+	if(!motionAssist || sign(power) == rsign || !rsign){
 		motor[liftRight] = power;  //liftLeft is slaved to liftRight
 	} else {
 		motor[liftRight] = 0;
