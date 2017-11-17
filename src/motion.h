@@ -4,10 +4,6 @@
 
 //Power Values
 #define MAX_POWER 127
-#define ARM_LOCK 21
-
-//Sensor Values
-#define PISTON_POS SensorValue[pistonLeft]
 
 //Controller Mirroring
 #define PAIRED_CH1 (vexRT[Ch1] + vexRT[Ch1Xmtr2])
