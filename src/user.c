@@ -8,6 +8,6 @@ task usercontrol(){
 		drive(DY, DT);
 
 		//Mogo
-		mogo(PAIRED_CH3);
+		mogo(threshold(PAIRED_CH3, 5));
 	}
 }

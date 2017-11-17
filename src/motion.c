@@ -10,13 +10,13 @@ void reset_I2C_sensors(void);
 void drive(int y, int t = 0){
 	//y - Forwards/Backwards
 	//t - Turning (optional parameter)
-	motor[driveLeft] = y-t;
-	motor[driveRight] = y+t;
+	motor[driveLeftFront] = y+t;
+	motor[driveRightFront] = y-t;
 }
 
 //Mogo (mobile goal lift)
 void mogo(int power){
-	SensorValue[mogoRight] = power;
+	motor[mogoLeft] = power;
 }
 
 //Utilities
