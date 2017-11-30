@@ -7,11 +7,12 @@ int required_sign(int current, int low, int high);
 void reset_I2C_sensors(void);
 
 //Driving
-void drive(int y, int t = 0){
+void drive(int y, int t = 0, int x = 0){
 	//y - Forwards/Backwards
 	//t - Turning (optional parameter)
 	motor[driveLeftFront] = y+t;
 	motor[driveRightFront] = y-t;
+	motor[driveCenter] = x;
 }
 
 //Mogo (mobile goal lift)

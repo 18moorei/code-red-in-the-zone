@@ -3,6 +3,7 @@
 #pragma config(Motor,  port1,           mogoLeft,      tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Motor,  port2,           driveRightRear, tmotorVex393_MC29, openLoop, reversed, driveRight)
 #pragma config(Motor,  port3,           driveLeftRear, tmotorVex393_MC29, openLoop, driveLeft)
+#pragma config(Motor,  port7,           driveCenter,   tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           driveLeftFront, tmotorVex393_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port9,           driveRightFront, tmotorVex393_MC29, openLoop, reversed, driveRight)
 #pragma config(Motor,  port10,          mogoRight,     tmotorVex393_HBridge, openLoop)
