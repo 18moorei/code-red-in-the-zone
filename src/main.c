@@ -7,6 +7,7 @@
 #pragma config(Sensor, I2C_2,  liftEncoder,    sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_3,  driveRightEncoder, sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_4,  driveLeftEncoder, sensorQuadEncoderOnI2CPort,    , AutoAssign )
+#pragma config(Motor,  port1,           armExtra,       tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           coneIntake,    tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port3,           armLeft,       tmotorVex393_MC29, PIDControl, reversed, encoderPort, I2C_1)
 #pragma config(Motor,  port4,           liftLeft,      tmotorVex393_MC29, openLoop, reversed)
@@ -35,6 +36,7 @@ void pre_auton(void){
 	pistons(0);
 	//Establish slave and master motors
 	slaveMotor(armRight, armLeft);
+	slaveMotor(armExtra, armLeft);
 	slaveMotor(liftLeft, liftRight);
 	//Reset all encoders
 	reset_I2C_sensors();
