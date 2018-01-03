@@ -2,8 +2,6 @@
 
 //Utilities
 int threshold(int value, int threshold);
-int sign(int x);
-int required_sign(int current, int low, int high);
 void reset_I2C_sensors(void);
 
 //Driving
@@ -19,17 +17,14 @@ void mogo(int power){
 	motor[mobilegoal] = power;
 }
 
+//Lift
+void lift(int power){
+	motor[liftLeftSplit] = power;
+}
+
 //Utilities
 int threshold(int value, int threshold){
 	return abs(value) > threshold ? value : 0;
-}
-
-int sign(int x){
-  return (x > 0) - (x < 0);
-}
-
-int required_sign(int current, int low, int high){
-	return (current < low) - (current > high);
 }
 
 void reset_I2C_sensors(void){
