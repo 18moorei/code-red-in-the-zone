@@ -1,5 +1,11 @@
 #pragma config(Sensor, in1,    powerExpander,  sensorAnalog)
+#pragma config(Sensor, in1,    powerExpander,  sensorAnalog)
+#pragma config(Sensor, in2,    gyro,           sensorGyro)
+#pragma config(Sensor, in3,    aclX,           sensorAccelerometer)
+#pragma config(Sensor, in4,    aclY,           sensorAccelerometer)
+#pragma config(Sensor, in5,    aclZ,           sensorAccelerometer)
 #pragma config(Sensor, dgtl1,  autonomousToggle, sensorDigitalIn)
+#pragma config(Sensor, dgtl10, reset,          sensorDigitalIn)
 #pragma config(Motor,  port1,           mobilegoal,    tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Motor,  port2,           driveRightRear, tmotorVex393_MC29, openLoop, reversed, driveRight)
 #pragma config(Motor,  port3,           driveLeftRear, tmotorVex393_MC29, openLoop, driveLeft)
@@ -16,17 +22,26 @@
 #pragma autonomousDuration(15)
 #pragma userControlDuration(105)
 
+void resetAll(void);
+
 #include "Vex_Competition_Includes.c"
 #include "NatLang_CORTEX.c"
 #include "motion.c"
+#include "pos.c"
 #include "user.c"
 #include "auto.c"
 
 void pre_auton(void){
 	bStopTasksBetweenModes = true;
+	resetAll();
+}
+
+void resetAll(void){
+	//Reset sensors
+	setHome();
+	reset_I2C_sensors();
 	//Establish slave and master motors
 	slaveMotor(driveRightRear, driveRightFront);
 	slaveMotor(driveLeftRear, driveLeftFront);
-	//Reset all encoders
-	reset_I2C_sensors();
+	slaveMotor(liftLeftSplit, liftRightSplit);
 }
