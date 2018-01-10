@@ -24,7 +24,7 @@ void lift(int power){
 
 //Utilities
 int threshold(int value, int threshold){
-	return abs(value) > threshold ? value : 0;
+	return abs(value) > abs(threshold) ? value : 0;
 }
 
 void reset_I2C_sensors(void){
