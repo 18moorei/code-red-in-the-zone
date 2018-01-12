@@ -1,6 +1,9 @@
+task blink();
+
 task usercontrol(){
 	int DY, DT;
 	bool isReset = false;
+	startTask(blink);
 
 	//Enable Positioning System
 	startTask(positionsystem);
@@ -17,11 +20,20 @@ task usercontrol(){
 		//Lift
 		lift((PAIRED_BTN7U - PAIRED_BTN7D) * MAX_POWER);
 
-		//Reset
-		if(SensorValue[reset] && !isReset){
+		//Reset (can be done multiple times, only required once)
+		if(SensorValue[resetButton]){
 			resetAll();
 			isReset = true;
-			waitUntil(!SensorValue[reset]);
+			stopTask(blink);
+			SensorValue[resetLED] = false;
+			waitUntil(!SensorValue[resetButton]);
 		}
+	}
+}
+
+task blink(){
+	while(true){
+		SensorValue[resetLED] = !SensorValue[resetLED];
+		wait1Msec(1000);
 	}
 }
