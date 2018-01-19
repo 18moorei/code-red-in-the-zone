@@ -14,12 +14,22 @@ void drive(int y, int t = 0){
 
 //Mogo (mobile goal lift)
 void mogo(int power){
-	motor[mobilegoal] = power;
+	motor[mobileGoalLeft] = power;
+}
+
+//Arm
+void arm(int power){
+	motor[armLeftSplit] = power;
 }
 
 //Lift
 void lift(int power){
-	motor[liftLeftSplit] = power;
+	motor[armLift] = power;
+}
+
+//Intake
+void intake(int power){
+	motor[coneIntake] = power;
 }
 
 //Utilities
