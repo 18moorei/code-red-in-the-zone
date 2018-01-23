@@ -19,7 +19,7 @@ void mogo(int power){
 
 //Arm
 void arm(int power){
-	motor[armLeftSplit] = power;
+	motor[armLeftSplit] = motor[armRightSplit] = power;
 }
 
 //Lift
