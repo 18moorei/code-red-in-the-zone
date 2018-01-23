@@ -10,8 +10,8 @@ task usercontrol(){
 
 	while(true){
 		//Driving
-		DY = threshold(PAIRED_CH2^2 / MAX_POWER, 5);
-		DT = threshold(PAIRED_CH1^2 / MAX_POWER, 5);
+		DY = threshold(PAIRED_CH2^2 / MAX_POWER, 5) + ((PAIRED_BTN8U - PAIRED_BTN8D) * MAX_POWER);
+		DT = threshold(PAIRED_CH1^2 / MAX_POWER, 5) + ((PAIRED_BTN8R - PAIRED_BTN8L) * MAX_POWER);
 		drive(DY, DT);
 
 		//Mogo
@@ -27,6 +27,9 @@ task usercontrol(){
 		intake((PAIRED_BTN5U - PAIRED_BTN5D) * MAX_POWER);
 
 		//Reset (can be done multiple times, only required once)
+		if(abs(SensorValue[aclZ]) > 50){
+			startTask(blink);
+		}
 		if(SensorValue[resetButton]){
 			resetAll();
 			isReset = true;
