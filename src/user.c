@@ -5,8 +5,8 @@ task usercontrol(){
 	bool isReset = false;
 	startTask(blink);
 
-	//Enable Positioning System
-	startTask(positionsystem);
+	//Disable PID control
+	pidEnabled(false);
 
 	while(true){
 		//Driving

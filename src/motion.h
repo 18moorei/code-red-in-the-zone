@@ -4,6 +4,7 @@
 
 //Power Values
 #define MAX_POWER 127
+#define ARM_LOCK 18
 
 //Controller Mirroring
 #define PAIRED_CH1 (vexRT[Ch1] + vexRT[Ch1Xmtr2])
