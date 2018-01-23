@@ -26,7 +26,7 @@ task autonomous(){
 	arm(60);
 	wait(1);
 	arm(-60);
-	intake(-MAX_POWER);
+	intake(MAX_POWER);
 	wait(1);
 	mogo(0);
 	arm(0);
@@ -35,20 +35,20 @@ task autonomous(){
 	//Drive back to the start
 	drive(MAX_POWER);
 	waitUntil(SensorValue[aclY] > 5);
-	drive(-MAX_POWER);
+	drive(-MAX_POWER/2);
 	wait1Msec(500);
 	drive(0);
 
 	//Deposit mobile goal
 	int turn_goal = GYRO_SIMPLE + 90;
 	while (GYRO_SIMPLE < turn_goal){
-		drive(20, -20);
+		drive(0, -40);
 	}
-	drive(60);
+	drive(-30);
 	mogo(127);
-	wait(3);
-	drive(-60);
 	wait(2);
+	drive(30);
+	wait(3);
 
 	//Stop
 	allMotorsOff();
