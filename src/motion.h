@@ -6,6 +6,9 @@
 #define MAX_POWER 127
 #define ARM_LOCK 18
 
+//Positioning Simplification
+#define GYRO_SIMPLE (SensorValue[gyro] % 3600 / 10)
+
 //Controller Mirroring
 #define PAIRED_CH1 (vexRT[Ch1] + vexRT[Ch1Xmtr2])
 #define PAIRED_CH2 (vexRT[Ch2] + vexRT[Ch2Xmtr2])

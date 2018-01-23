@@ -4,37 +4,51 @@ task autonomous(){
 	if(SensorValue[autonomousToggle]||SensorValue[powerExpander]<300){return;}
 
 	//Enable PID control
-	pidEnabled(true);
+	pidEnabled(false); //Disabled until we can figure out why PID is broken
 
-	//Move arms out of the way
-	arm(-127);
-	wait1Msec(500);
+	//Move arm out of the way
+	arm(-MAX_POWER);
+	mogo(MAX_POWER);
+	wait1Msec(200);
 	arm(-ARM_LOCK);
 
 	//Drive backwards to mobile goal
 	drive(-127);
-	waitUntil(SensorValue[aclY] > 20);
-	drive(0); //Don't hold motors
+	waitUntil(SensorValue[aclY] < -5);
+	drive(0);
+	wait(1);
 
 	//Pickup mobile goal
-	mogo(-MAX_POWER);
-	wait(1);
+	mogo(-90);
+	wait(2);
 
 	//Slam preload on top
-	arm(0); //Stop locking arms so the cone can coast down
+	arm(60);
 	wait(1);
-	intake(-127);
-	wait1Msec(1000);
+	arm(-60);
+	intake(-MAX_POWER);
+	wait(1);
+	mogo(0);
+	arm(0);
 	intake(0);
 
 	//Drive back to the start
-	forward(2000, degrees, 127);
-
-	turnRight(666, degrees); //Turn around
-	backward(1000, degrees, 67);
-	mogo(127);
-	forward(1000, degrees, 67);
+	drive(MAX_POWER);
+	waitUntil(SensorValue[aclY] > 5);
+	drive(-MAX_POWER);
 	wait1Msec(500);
+	drive(0);
+
+	//Deposit mobile goal
+	int turn_goal = GYRO_SIMPLE + 90;
+	while (GYRO_SIMPLE < turn_goal){
+		drive(20, -20);
+	}
+	drive(60);
+	mogo(127);
+	wait(3);
+	drive(-60);
+	wait(2);
 
 	//Stop
 	allMotorsOff();
