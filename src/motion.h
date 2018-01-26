@@ -5,6 +5,7 @@
 //Power Values
 #define MAX_POWER 127
 #define ARM_LOCK 18
+#define MOGO_LOCK 25
 
 //Positioning Simplification
 #define GYRO_SIMPLE (SensorValue[gyro] % 3600 / 10)

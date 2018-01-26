@@ -15,7 +15,7 @@ task usercontrol(){
 		drive(DY, DT);
 
 		//Mogo
-		mogo(threshold(PAIRED_CH3, 15));
+		mogo(threshold(PAIRED_CH3, 15) - MOGO_LOCK);
 
 		//Arm
 		arm((PAIRED_BTN6U - PAIRED_BTN6D) * MAX_POWER);

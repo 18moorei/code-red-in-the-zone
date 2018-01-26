@@ -11,6 +11,7 @@ task autonomous(){
 	mogo(MAX_POWER);
 	wait1Msec(200);
 	arm(-ARM_LOCK);
+	mogo(0);
 
 	//Drive backwards to mobile goal
 	drive(-127);
@@ -26,7 +27,7 @@ task autonomous(){
 	arm(60);
 	wait(1);
 	arm(-60);
-	intake(MAX_POWER);
+	intake(-MAX_POWER);
 	wait(1);
 	mogo(0);
 	arm(0);

@@ -14,7 +14,7 @@
 #pragma config(Motor,  port2,           driveRightRear, tmotorVex393_MC29, openLoop, reversed, driveRight, encoderPort, I2C_2)
 #pragma config(Motor,  port3,           driveLeftFront, tmotorVex393_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port4,           armLeftSplit,  tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port5,           coneIntake,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           coneIntake,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port6,           armLift,       tmotorVex393_MC29, openLoop, reversed, encoderPort, I2C_1)
 #pragma config(Motor,  port7,           armRightSplit, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           driveRightFront, tmotorVex393_MC29, openLoop, reversed, driveRight)
