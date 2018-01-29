@@ -35,13 +35,3 @@ void intake(int power){
 int threshold(int value, int threshold){
 	return abs(value) > abs(threshold) ? value : 0;
 }
-
-void reset_I2C_sensors(void){
-	SensorValue[I2C_1] = SensorValue[I2C_2] = SensorValue[I2C_3] = 0;
-}
-
-void pidEnabled(bool enabled){
-	setPIDforMotor(driveLeftRear, enabled);
-	setPIDforMotor(driveRightRear, enabled);
-	setPIDforMotor(armLift, enabled);
-}

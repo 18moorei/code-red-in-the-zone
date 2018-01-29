@@ -5,9 +5,6 @@ task usercontrol(){
 	bool isReset = false;
 	startTask(blink);
 
-	//Disable PID control
-	pidEnabled(false);
-
 	while(true){
 		//Driving
 		DY = threshold(PAIRED_CH2^2 / MAX_POWER, 5) + ((PAIRED_BTN8U - PAIRED_BTN8D) * MAX_POWER);
