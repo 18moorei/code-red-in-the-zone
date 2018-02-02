@@ -5,7 +5,7 @@ task autonomous(){
 	stopTask(blink);
 
 	//Move arm out of the way and engage mogo
-	drive(-MAX_POWER/4);
+	drive(MAX_POWER/4);
 	arm(-MAX_POWER);
 	mogo(MAX_POWER);
 	wait1Msec(400);
@@ -13,8 +13,8 @@ task autonomous(){
 	wait1Msec(500);
 	mogo(0);
 
-	//Drive backwards to mobile goal
-	drive(-127);
+	//Drive forwards to mobile goal
+	drive(127);
 	waitUntil(SensorValue[aclY] < -5);
 	wait1Msec(400);
 	drive(0);
@@ -26,7 +26,7 @@ task autonomous(){
 
 	//Slam preload on top
 	arm(60);
-	drive(MAX_POWER/3);
+	drive(-MAX_POWER/3);
 	wait1Msec(800);
 	arm(-60);
 	intake(-MAX_POWER);
@@ -36,11 +36,11 @@ task autonomous(){
 	intake(0);
 
 	//Drive back to the start
-	drive(MAX_POWER/2);
+	drive(-MAX_POWER/2);
 	waitUntil(SensorValue[aclY] > 5);
 	drive(0);
 	wait1Msec(200);
-	drive(-MAX_POWER/2);
+	drive(MAX_POWER/2);
 	wait1Msec(500);
 	drive(0);
 
@@ -49,14 +49,14 @@ task autonomous(){
 	while (GYRO_SIMPLE < turn_goal){
 		drive(0, -55);
 	}
-	drive(-50);
+	drive(MAX_POWER/2);
 	wait1Msec(500);
 	mogo(MAX_POWER);
 	wait1Msec(1500);
 	mogo(-MAX_POWER);
 	wait1Msec(700);
 	mogo(MAX_POWER);
-	drive(MAX_POWER);
+	drive(-MAX_POWER);
 	wait1Msec(3000);
 
 	//Stop

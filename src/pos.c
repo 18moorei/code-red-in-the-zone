@@ -8,22 +8,6 @@ typedef struct {
 Point current_pos;
 Point bias;
 
-task positionsystem {
-	stopTask(positionsystem);
-	int velY = 0, dir, c, a, b;
-	while (true) {
-		velY = threshold(SensorValue[aclY], bias.y);
-		dir = SensorValue[gyro] % 3600 / 10;
-		c = velY;
-		a = cos(dir) * c; //x
-		b = sin(dir) * c; //y
-		current_pos.x += a;
-		current_pos.y += b;
-		current_pos.r = dir;
-		wait1Msec(1000);
-	}
-}
-
 void setHome(void) {
 	current_pos.x = 0;
 	current_pos.y = 0;

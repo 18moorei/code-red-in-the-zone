@@ -7,8 +7,8 @@ int threshold(int value, int threshold);
 void drive(int y, int t = 0){
 	//y - Forwards/Backwards
 	//t - Turning (optional parameter)
-	motor[driveLeftRear] = y+t;
-	motor[driveRightRear] = y-t;
+	motor[driveLeftRear] = y-t;
+	motor[driveRightRear] = y+t;
 }
 
 //Mogo (mobile goal lift)
