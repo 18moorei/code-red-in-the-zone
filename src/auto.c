@@ -41,8 +41,8 @@ task autonomousDriving(){
 	}
 	drive(MAX_POWER/2);
 	wait1Msec(500);
-	atMogoFlag = true;
-	wait(2200);
+	atBarFlag = true;
+	wait1Msec(2200);
 	drive(-MAX_POWER);
 	wait1Msec(3000);
 
@@ -54,7 +54,7 @@ task autonomousManipulation(){
 	//Move arm out of the way and engage mogo
 	arm(-MAX_POWER);
 	mogo(MAX_POWER);
-	waitUntil(SensorValue[armEncoder] > 800);
+	waitUntil(SensorValue[armEncoder] < -500);
 	arm(-ARM_LOCK);
 	wait1Msec(500);
 	mogo(0);
