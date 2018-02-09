@@ -28,7 +28,7 @@ task usercontrol(){
 			startTask(blink);
 		}
 		if(SensorValue[resetButton]){
-			resetAll();
+			setHome();
 			isReset = true;
 			stopTask(blink);
 			SensorValue[resetLED] = false;

@@ -1,3 +1,4 @@
+#pragma config(I2C_Usage, I2C1, i2cSensors)
 #pragma config(Sensor, in1,    gyro,           sensorGyro)
 #pragma config(Sensor, in2,    aclX,           sensorAccelerometer)
 #pragma config(Sensor, in3,    aclY,           sensorAccelerometer)
@@ -6,13 +7,15 @@
 #pragma config(Sensor, dgtl9,  resetLED,       sensorLEDtoVCC)
 #pragma config(Sensor, dgtl10, resetButton,    sensorTouch)
 #pragma config(Sensor, dgtl12, autonomousToggle, sensorDigitalIn)
+#pragma config(Sensor, I2C_1,  armLiftEncoder, sensorQuadEncoderOnI2CPort,    , AutoAssign )
+#pragma config(Sensor, I2C_2,  armEncoder,     sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Motor,  port1,           mobileGoalRight, tmotorVex393_HBridge, openLoop, reversed)
 #pragma config(Motor,  port2,           driveRightRear, tmotorVex393_MC29, openLoop, driveRight)
 #pragma config(Motor,  port3,           driveLeftFront, tmotorVex393_MC29, openLoop, reversed, driveLeft)
 #pragma config(Motor,  port4,           armLeftSplit,  tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port5,           coneIntake,    tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port6,           armLift,       tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port7,           armRightSplit, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           armLift,       tmotorVex393_MC29, openLoop, reversed, encoderPort, I2C_1)
+#pragma config(Motor,  port7,           armRightSplit, tmotorVex393_MC29, openLoop, encoderPort, I2C_2)
 #pragma config(Motor,  port8,           driveRightFront, tmotorVex393_MC29, openLoop, driveRight)
 #pragma config(Motor,  port9,           driveLeftRear, tmotorVex393_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port10,          mobileGoalLeft, tmotorVex393_HBridge, openLoop, reversed)
@@ -25,25 +28,20 @@
 #pragma autonomousDuration(15)
 #pragma userControlDuration(105)
 
-void resetAll(void);
-
 #include "Vex_Competition_Includes.c"
 #include "NatLang_CORTEX.c"
 #include "motion.c"
-#include "pos.c"
 #include "user.c"
 #include "auto.c"
 
 void pre_auton(void){
 	bStopTasksBetweenModes = true;
-	resetAll();
 	//Establish slave and master motors
 	slaveMotor(driveRightFront, driveRightRear);
 	slaveMotor(driveLeftFront, driveLeftRear);
+	slaveMotor(armLeftSplit, armRightSplit);
 	slaveMotor(mobileGoalRight, mobileGoalLeft);
-}
-
-void resetAll(void){
-	//Reset sensors
+	//Set home
 	setHome();
 }
+
