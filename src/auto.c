@@ -62,3 +62,9 @@ task autonomous(){
 	//Stop
 	allMotorsOff();
 }
+task autonomousDriving(){
+
+}
+task autonomousManipulation(){
+
+}
