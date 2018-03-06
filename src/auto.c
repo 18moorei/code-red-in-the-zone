@@ -1,17 +1,19 @@
 task autonomousDriving();
 task autonomousManipulation();
+bool atMogoFlag, atBarFlag;
 
 task autonomous(){
 	//Checks if autonomous is enabled and should run
 	//Don't run autonomous if the power expander has no battery, so we can touch it and replace it
 	if(SensorValue[autonomousToggle]||SensorValue[powerExpander]<300){return;}
 	stopTask(blink);
-
+	//Reset flags
+	atMogoFlag = false;
+	atBarFlag = false;
+	//Start autonomous
 	startTask(autonomousDriving);
 	startTask(autonomousManipulation);
 }
-
-bool atMogoFlag = false, atBarFlag = false;
 
 task autonomousDriving(){
 	//Drive forwards to mogo
