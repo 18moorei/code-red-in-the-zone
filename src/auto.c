@@ -46,7 +46,7 @@ task autonomousDriving(){
 	atBarFlag = true;
 	wait1Msec(2200);
 	drive(-MAX_POWER);
-	wait1Msec(3000);
+	wait1Msec(1000);
 
 	//Stop
 	allMotorsOff();

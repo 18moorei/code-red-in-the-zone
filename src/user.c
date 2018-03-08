@@ -7,12 +7,12 @@ task usercontrol(){
 
 	while(true){
 		//Driving
-		DY = threshold(PAIRED_CH2^2 / MAX_POWER, 5) + ((PAIRED_BTN8U - PAIRED_BTN8D) * MAX_POWER);
-		DT = threshold(PAIRED_CH1^2 / MAX_POWER, 5) + ((PAIRED_BTN8R - PAIRED_BTN8L) * MAX_POWER);
+		DY = threshold(vexRT[Ch2]^2 / MAX_POWER, 5) + ((vexRT[Btn8U] - vexRT[Btn8D]) * MAX_POWER);
+		DT = threshold(vexRT[Ch1]^2 / MAX_POWER, 5) + ((vexRT[Btn8R] - vexRT[Btn8L]) * MAX_POWER);
 		drive(DY, DT);
 
 		//Mogo
-		mogo(threshold(PAIRED_CH3, 15) - MOGO_LOCK);
+		mogo(threshold(PAIRED_CH3, 15) - (DY + DT != 0 ? MOGO_LOCK : 0));
 
 		//Arm
 		arm((PAIRED_BTN6U - PAIRED_BTN6D) * MAX_POWER);
@@ -22,6 +22,22 @@ task usercontrol(){
 
 		//Intake
 		intake((PAIRED_BTN5U - PAIRED_BTN5D) * MAX_POWER);
+
+		//Run AutoPreloader (blocking)
+		if(SensorValue[Btn7L]){
+			startTask(autopreloader);
+			waitUntil(!SensorValue[Btn7L]);
+			stopTask(autopreloader);
+		}
+
+		//Tell AutoPreloader the current cone total
+		if(PAIRED_BTN7R){
+			current_cones.total = 0;
+		} else if(vexRT[Btn8U]){
+			current_cones.total += 1;
+		} else if(vexRT[Btn8D]){
+			current_cones.total -= 1;
+		}
 
 		//Reset (can be done multiple times, only required once)
 		if(abs(SensorValue[aclZ]) > 50){

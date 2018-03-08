@@ -37,30 +37,15 @@ int threshold(int value, int threshold){
 }
 
 //Positioning
-typedef struct {
-	int x;
-	int y;
-	int z;
-	int r;
-} Point;
-
-Point current_pos;
-Point arm_pos;
-
 void setHome(void) {
 	//Reset bot position
-	current_pos.x = 0;
-	current_pos.y = 0;
-	current_pos.r = 0;
-	SensorValue[gyro] = current_pos.r;
+	SensorValue[gyro] = 0;
 	SensorScale[gyro] = 260;
 	SensorFullCount[gyro] = 3600;
-	SensorValue[aclX] = current_pos.x;
-	SensorValue[aclY] = current_pos.y;
-	SensorValue[aclZ] = current_pos.z;
+	SensorValue[aclX] = 0;
+	SensorValue[aclY] = 0;
+	SensorValue[aclZ] = 0;
 	//Reset arm position
-	arm_pos.y = 0;
-	arm_pos.r = 0;
-	SensorValue[armLiftEncoder] = arm_pos.y;
-	SensorValue[armEncoder] = arm_pos.r;
+	SensorValue[armLiftEncoder] = 0;
+	SensorValue[armEncoder] = 0;
 }
