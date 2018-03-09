@@ -1,4 +1,10 @@
 task blink();
+typedef struct {
+	int total;
+	int max;
+} Cones;
+
+Cones current_cones;
 
 task usercontrol(){
 	int DY, DT;
@@ -12,7 +18,9 @@ task usercontrol(){
 		drive(DY, DT);
 
 		//Mogo
-		mogo(threshold(PAIRED_CH3, 15) - (DY + DT != 0 ? MOGO_LOCK : 0));
+		mogo(threshold(PAIRED_CH3, 15) - (DY + DT > 5 ? MOGO_LOCK : 0));
+		SensorValue[leftMogoIndicator] = SensorValue[leftMogoDetector];
+		SensorValue[rightMogoIndicator] = SensorValue[rightMogoDetector];
 
 		//Arm
 		arm((PAIRED_BTN6U - PAIRED_BTN6D) * MAX_POWER);
@@ -24,10 +32,9 @@ task usercontrol(){
 		intake((PAIRED_BTN5U - PAIRED_BTN5D) * MAX_POWER);
 
 		//Run AutoPreloader (blocking)
-		if(SensorValue[Btn7L]){
-			startTask(autopreloader);
-			waitUntil(!SensorValue[Btn7L]);
-			stopTask(autopreloader);
+		while(SensorValue[Btn7L]){
+			if(SensorValue[armEncoder] > -1380){}
+			setLiftPosition(-1000);
 		}
 
 		//Tell AutoPreloader the current cone total

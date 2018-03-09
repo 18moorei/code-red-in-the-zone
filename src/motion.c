@@ -21,9 +21,17 @@ void arm(int power){
 	motor[armRightSplit] = power;
 }
 
+void setArmPosition(int position, int speed = 127, bool hold = true){
+	setMotorTarget(armRightSplit, position, speed, hold);
+}
+
 //Lift
 void lift(int power){
 	motor[armLift] = power;
+}
+
+void setLiftPosition(int position, int speed = 127, bool hold = true){
+	setMotorTarget(armLift, position, speed, hold);
 }
 
 //Intake
