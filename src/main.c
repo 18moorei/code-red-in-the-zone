@@ -35,7 +35,6 @@
 #include "Vex_Competition_Includes.c"
 #include "NatLang_CORTEX.c"
 #include "motion.c"
-#include "autopreloader.c"
 #include "user.c"
 #include "auto.c"
 

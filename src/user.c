@@ -1,15 +1,14 @@
 task blink();
-typedef struct {
-	int total;
-	int max;
-} Cones;
-
-Cones current_cones;
+task coneCount();
+task autoPreloader();
+int cones = 0; //Current cone count
+bool apPreload = false; //If auto preloading preloads (true) or ground loads (false)
 
 task usercontrol(){
 	int DY, DT;
 	bool isReset = false;
 	startTask(blink);
+	startTask(coneCount);
 
 	while(true){
 		//Driving
@@ -32,25 +31,17 @@ task usercontrol(){
 		intake((PAIRED_BTN5U - PAIRED_BTN5D) * MAX_POWER);
 
 		//Run AutoPreloader (blocking)
-		while(SensorValue[Btn7L]){
-			if(SensorValue[armEncoder] > -1380){}
-			setLiftPosition(-1000);
-		}
-
-		//Tell AutoPreloader the current cone total
-		if(PAIRED_BTN7R){
-			current_cones.total = 0;
-		} else if(vexRT[Btn8U]){
-			current_cones.total += 1;
-		} else if(vexRT[Btn8D]){
-			current_cones.total -= 1;
+		if(SensorValue[Btn7L]){
+			startTask(autoPreloader);
+			waitUntil(!SensorValue[Btn7L]);
+			stopTask(autoPreloader);
 		}
 
 		//Reset (can be done multiple times, only required once)
-		if(abs(SensorValue[aclZ]) > 50){
+		if(abs(SensorValue[aclZ]) > 50){ //Warn if bot has been lifted
 			startTask(blink);
 		}
-		if(SensorValue[resetButton]){
+		if(SensorValue[resetButton]){ //Reset sensors if reset button is pressed
 			setHome();
 			isReset = true;
 			stopTask(blink);
@@ -60,9 +51,45 @@ task usercontrol(){
 	}
 }
 
+//Blink the warning LED is the sensors need to be reset
 task blink(){
 	while(true){
 		SensorValue[resetLED] = !SensorValue[resetLED];
 		wait1Msec(1000);
+	}
+}
+
+//Handle the automated preloader stuff to allow stopping and starting at any point
+task autoPreloader(){
+	apPreload = SensorValue[armEncoder] > -1380;
+	while(true){
+		//Return for pickup
+		intake(MAX_POWER);
+		setArmPosition(apPreload ? -1380 : -1500);
+		setLiftPosition(0);
+		//Pickup cone
+		wait1Msec(500);
+		//Bring cone to tower
+		setLiftPosition(cones * 15);
+		setArmPosition(cones * 20);
+		//Release cone
+		intake(-MAX_POWER);
+		setArmPosition(-1000);
+	}
+}
+
+//Allows the partner to count the cones but not add more that 1 per button and not block the driver
+task coneCount(){
+	while(true){
+		//Tell AutoPreloader the current cone total
+		if(PAIRED_BTN7R){
+			cones = 0;
+		} else if(vexRT[Btn8UXmtr2]){
+			cones += 1;
+			waitUntil(!vexRT[Btn8UXmtr2]);
+		} else if(vexRT[Btn8DXmtr2]){
+			cones -= 1;
+			waitUntil(!vexRT[Btn8DXmtr2]);
+		}
 	}
 }
